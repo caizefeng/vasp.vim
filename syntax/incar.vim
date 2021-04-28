@@ -6,6 +6,8 @@ let b:current_syntax = "incar"
 set commentstring=#\ %s
 
 syn clear
+
+
 " source
 "http://cms.mpi.univie.ac.at/wiki/index.php/Category:INCAR
 syn keyword incarKeyword
@@ -71,8 +73,8 @@ syn keyword vaspOptic
 " the \v key means vim's very magic regex 
 syn match incarComment "\v#.*$"
 syn match incarComment "\v!.*$"
-syn match incarComment "^[^=]*[A-Za-z]\+[^=]*[!#]\?.*$"
 syn match incarComment "[#!].\{-}\(\\.*\n[^\\]*\)\+"
+syn match incarComment "[A-Za-z]\+[^=]*[!#]\?.*$"
 
 " the space before the left bracket is necessary to match it, but other
 " delimiters do not need the space
