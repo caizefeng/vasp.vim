@@ -71,10 +71,13 @@ syn keyword vaspOptic
 "  SYNTAX FOR COMMENTS  "
 """""""""""""""""""""""""
 " the \v key means vim's very magic regex 
-syn match incarComment "\v#.*$"
-syn match incarComment "\v!.*$"
-syn match incarComment "[#!].\{-}\(\\.*\n[^\\]*\)\+"
-syn match incarComment "[A-Za-z]\+[^=]*[!#]\?.*$"
+syn match incarComment "\m#.*$"
+syn match incarComment "\m!.*$"
+syn match incarComment "\m[#!].\{-}\(\\.*\n[^\\]*\)\+"
+syn match incarComment "\m[A-Za-z]\+[^=]*[!#]\?.*$"
+
+" match systems' name
+syn match systemName "\(SYSTEM\s*=\s*\)\@<=.*$"
 
 " the space before the left bracket is necessary to match it, but other
 " delimiters do not need the space
@@ -84,7 +87,7 @@ syn region incarComment start=' (' end=')'
 "  OPERATORS  "
 """""""""""""""
 "In the INCAR file to assing values '=' it is used
-syn match incarOperator "\v\="
+syn match incarOperator "\m="
 
 """""""""""""""
 "  CONSTANTS  "
@@ -100,11 +103,11 @@ syn keyword incarIdentifier
 " param of LREAL
 syn keyword incarIdentifier
  \ On Auto
-syn match incarIdentifier '\.TRUE\.'
-syn match incarIdentifier '\.FALSE\.'
-syn match incarIdentifier '\.T\.'
-syn match incarIdentifier '\.F\.'
-syn match incarConstant '\v[-+]?(\d+\.)?\d+[eE]?-?\d*\s?'
+syn match incarIdentifier '\m\.TRUE\.'
+syn match incarIdentifier '\m\.FALSE\.'
+syn match incarIdentifier '\m\.T\.'
+syn match incarIdentifier '\m\.F\.'
+syn match incarConstant '\m[-+]\?\d\+\(\.\d*\)\?[eE]\?-\?\d*\s\?'
 
 
 " Define the highlighting
@@ -121,3 +124,4 @@ hi link incarCommentInline Comment
 hi link incarOperator String
 hi link incarConstant Constant
 hi link incarIdentifier Identifier
+hi link systemName Identifier
