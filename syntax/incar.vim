@@ -107,10 +107,11 @@ syn keyword incarIdentifier
 " param of LREAL
 syn keyword incarIdentifier
  \ On Auto
-syn match incarIdentifier '\m\.TRUE\.'
-syn match incarIdentifier '\m\.FALSE\.'
-syn match incarIdentifier '\m\.T\.'
-syn match incarIdentifier '\m\.F\.'
+
+syn match incarIdentifier '\(=\s*\)\@<=\c\(\.TRUE\.\|TRUE\|T\|\.\T\.\)'
+syn match incarIdentifier '\(=\s*\)\@<=\c\(\.FALSE\.\|FALSE\|F\|\.\F\.\)'
+
+
 syn match incarConstant '\m[-+]\?\d\+\(\.\d*\)\?[eE]\?-\?\d*\s\?'
 
 
