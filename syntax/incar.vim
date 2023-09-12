@@ -96,13 +96,6 @@ syn match incarOperator "\m="
 """""""""""""""
 "  CONSTANTS  "
 """""""""""""""
-" params of PREC
-syn match incarIdentifier "\<\c\(low\|medium\|high\|normal\|single\|accurate\)\>"
-" params of LREAL
-syn match incarIdentifier "\<\c\(on\|auto\)\>"
-" params of ALGO
-syn match incarIdentifier "\<\c\(normal\|veryfast\|fast\|conjugate\|all\|damped\|subrot\|eigenval\|exact\|none\|nothing\|chi\|g0w0\|gw0\|gw\|scgw0\|scgw\|g0w0r\|gw0r\|gwr\|scgw0r\|scgwr\|acfdt\|rpa\|acfdtr\|rpar\|bse\|tdhf\)\>"
-
 
 " boolean
 syn match incarIdentifier '\(=\s*\)\@<=\c\(\.TRUE\.\|TRUE\|T\|\.\T\.\)'
@@ -110,6 +103,15 @@ syn match incarIdentifier '\(=\s*\)\@<=\c\(\.FALSE\.\|FALSE\|F\|\.\F\.\)'
 
 " number
 syn match incarConstant '\m[-+]\?\d\+\(\.\d*\)\?[eE]\?-\?\d*\s\?'
+
+
+" params of PREC
+syn match incarIdentifier "\<\c\(low\|medium\|high\|normal\|single\|accurate\)\>"
+" params of LREAL
+syn match incarIdentifier "\<\c\(on\|auto\)\>"
+" params of ALGO
+syn match incarIdentifier "\<\c\(normal\|veryfast\|fast\|conjugate\|all\|damped\|subrot\|eigenval\|exact\|none\|nothing\|chi\|g0w0\|gw0\|gw\|scgw0\|scgw\|g0w0r\|gw0r\|gwr\|scgw0r\|scgwr\|acfdt\|rpa\|acfdtr\|rpar\|bse\|tdhf\)\>"
+
 
 
 " Define the highlighting
