@@ -90,28 +90,25 @@ syn region incarComment start=' (' end=')'
 """""""""""""""
 "  OPERATORS  "
 """""""""""""""
-"In the INCAR file to assing values '=' it is used
+" equal sign in INCAR files
 syn match incarOperator "\m="
 
 """""""""""""""
 "  CONSTANTS  "
 """""""""""""""
-" params of ALGO
-syn keyword incarIdentifier
- \ Normal VeryFast Fast Conjugate All Damped Subrot Eigenval Exact 
- \ None Nothing CHI G0W0 GW0 GW scGW0 scGW G0W0R GW0R GWR scGW0R scGWR ACFDT
- \ RPA ACFDTR RPAR BSE TDHF
 " params of PREC
-syn keyword incarIdentifier
- \ Low Medium High Normal Single Accurate 
-" param of LREAL
-syn keyword incarIdentifier
- \ On Auto
+syn match incarIdentifier "\<\c\(low\|medium\|high\|normal\|single\|accurate\)\>"
+" params of LREAL
+syn match incarIdentifier "\<\c\(on\|auto\)\>"
+" params of ALGO
+syn match incarIdentifier "\<\c\(normal\|veryfast\|fast\|conjugate\|all\|damped\|subrot\|eigenval\|exact\|none\|nothing\|chi\|g0w0\|gw0\|gw\|scgw0\|scgw\|g0w0r\|gw0r\|gwr\|scgw0r\|scgwr\|acfdt\|rpa\|acfdtr\|rpar\|bse\|tdhf\)\>"
 
+
+" boolean
 syn match incarIdentifier '\(=\s*\)\@<=\c\(\.TRUE\.\|TRUE\|T\|\.\T\.\)'
 syn match incarIdentifier '\(=\s*\)\@<=\c\(\.FALSE\.\|FALSE\|F\|\.\F\.\)'
 
-
+" number
 syn match incarConstant '\m[-+]\?\d\+\(\.\d*\)\?[eE]\?-\?\d*\s\?'
 
 
