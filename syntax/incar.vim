@@ -111,8 +111,8 @@ syn match incarIdentifier "\<\c\(low\|medium\|high\|normal\|single\|accurate\)\>
 syn match incarIdentifier "\<\c\(on\|auto\)\>"
 " params of ALGO
 syn match incarIdentifier "\<\c\(normal\|veryfast\|fast\|conjugate\|all\|damped\|subrot\|eigenval\|exact\|none\|nothing\|chi\|g0w0\|gw0\|gw\|scgw0\|scgw\|g0w0r\|gw0r\|gwr\|scgw0r\|scgwr\|acfdt\|rpa\|acfdtr\|rpar\|bse\|tdhf\)\>"
-
-
+" params of GGA
+syn match incarIdentifier "\<\c\(CA\|PZ\|VW\|HL\|WI\|LIBXC\|LI\|91\|PE\|RE\|RP\|PS\|AM\|B3\|B5\|BF\|OR\|BO\|MK\|ML\|CX\)\>"
 
 " Define the highlighting
 hi link incarKeyword Keyword
