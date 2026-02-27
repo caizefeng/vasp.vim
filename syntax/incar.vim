@@ -17,8 +17,8 @@ syntax match incarComment /#.*/ contains=@Spell
 syntax match incarComment /!.*/ contains=@Spell
 syntax match incarComment "\m[#!].\{-}\(\\.*\n[^\\]*\)\+"
 
-" Broad catch-all: all unrelated strings as comments
-syntax match incarComment "\m[A-Za-z]\+[^=]*[!#]\?.*$"  
+" Broad catch-all: treat non-assignment junk lines as comments (no "=" anywhere)
+syn match incarComment /^\s*[^#!=\s][^=]*$/  
 
 syntax match incarOperator /=/
 
@@ -170,8 +170,6 @@ let s:cat_optic = [
       \ 'PHON_SIGMA', 'POSNICS', 'TRANSPORT_NEDOS', 'TRANSPORT_RELAXATION_TIME', 'WRT_NMRCUR',
       \ ]
 
-" Exact tag-name matches on the left-hand side of assignments (strict lists only: official VASP + DeltaSpin).
-" NOTE: no generic fallback matcher, so unknown/non-official tags will not be highlighted.
 
 " Specific matches (official VASP list, DeltaSpin list, then category overlays).
 execute 'syntax match vaspTagKnown /\%(^\|;\)\s*\zs\<\%(' . join(s:vasp_tags, '\|') . '\)\>\ze\%(\s*\%(=\|[#!]\)\|\s*$\)/ contains=NONE'
@@ -184,6 +182,11 @@ execute 'syntax match vaspMagnetic /\%(^\|;\)\s*\zs\<\%(' . join(s:cat_magnetic,
 execute 'syntax match vaspIon /\%(^\|;\)\s*\zs\<\%(' . join(s:cat_ion, '\|') . '\)\>\ze\%(\s*\%(=\|[#!]\)\|\s*$\)/ contains=NONE'
 execute 'syntax match vaspCorrelation /\%(^\|;\)\s*\zs\<\%(' . join(s:cat_correlation, '\|') . '\)\>\ze\%(\s*\%(=\|[#!]\)\|\s*$\)/ contains=NONE'
 execute 'syntax match vaspOptic /\%(^\|;\)\s*\zs\<\%(' . join(s:cat_optic, '\|') . '\)\>\ze\%(\s*\%(=\|[#!]\)\|\s*$\)/ contains=NONE'
+
+" --- Broad catch-all: assignment lines with unknown LHS tag => comment ----
+let s:incar_known_pat = '\%(' . join(s:vasp_tags + s:deltaspin_tags, '\|') . '\)'
+execute 'syn match incarComment /^\s*\%(\<' . s:incar_known_pat . '\>\)\@!\<[A-Za-z][A-Za-z0-9_]*\>\s*=.*$/ contains=@Spell'
+unlet s:incar_known_pat
 
 
 " -----------------------------
@@ -212,9 +215,6 @@ syntax match vaspValueMETAGGA /\%(^\s*METAGGA\s*=\s*\)\@<=\%(LIBXC\|TPSS\|TPSS_X
 " A few other common enum-ish tags
 syntax match vaspValuePRECFOCK /\%(^\s*PRECFOCK\s*=\s*\)\@<=\%(Low\|Medium\|Fast\|Normal\|Accurate\)\>/
 
-" SYSTEM line payload (up to inline comment)
-syntax match incarSystemName /\%(^\s*SYSTEM\s*=\s*\)\@<=\_.\{-}\ze\s*[#!].*$\|\%(^\s*SYSTEM\s*=\s*\)\@<=.\+$/ contains=incarComment
-
 " -----------------------------
 " Highlight links
 " -----------------------------
@@ -232,7 +232,7 @@ hi def link vaspIon             Repeat
 hi def link vaspMagnetic        Repeat
 hi def link vaspOptic           Repeat
 hi def link vaspTagKnown        Repeat
-hi def deltaSpinTag      ctermfg=206 guifg=#ff79c6 gui=bold cterm=bold
+hi def deltaSpinTag             ctermfg=206 guifg=#ff79c6 gui=bold cterm=bold
 
 hi def link vaspValueALGO       Identifier
 hi def link vaspValuePREC       Identifier
@@ -240,7 +240,6 @@ hi def link vaspValueLREAL      Identifier
 hi def link vaspValueGGA        Identifier
 hi def link vaspValueMETAGGA    Identifier
 hi def link vaspValuePRECFOCK   Identifier
-hi def link incarSystemName     Identifier
 
 let b:current_syntax = 'incar'
 
